@@ -1,4 +1,4 @@
-# Assessment Fairness Explorer
+# Assessment fairness explorer
 
 ## A context-aware interpretation prototype using TIMSS 2023 Grade 8 mathematics
 
@@ -69,5 +69,5 @@ That boundary is part of the tool's purpose: a responsible assessment dashboard 
 **Source:** IEA. (2025). *TIMSS 2023 International Database*. https://www.iea.nl/data-tools/repository/timss
 
 
-> **Assessment Fairness Explorer | TIMSS 2023**  
+> **Assessment fairness explorer | TIMSS 2023**  
 > An independent evidence prototype that uses international assessment data to show how contextual score patterns should guide follow-up validity and equity research rather than be over-interpreted as explanations.

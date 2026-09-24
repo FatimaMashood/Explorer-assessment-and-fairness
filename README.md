@@ -1,4 +1,4 @@
-# Assessment Fairness Explorer
+# Assessment fairness explorer
 
 An independent, local prototype that turns TIMSS 2023 Grade 8 mathematics patterns into **next research questions** for assessment teams. 
 
@@ -60,7 +60,7 @@ python3 -m http.server 8000
 
 Then open [http://localhost:8000/app/](http://localhost:8000/app/).
 
-> **Assessment Fairness Explorer | TIMSS 2023**  
+> **Assessment fairness explorer | TIMSS 2023**  
 > An independent evidence prototype that uses international assessment data to show how contextual score patterns should guide follow-up validity and equity research rather than be over-interpreted as explanations.
 
 ## Source
