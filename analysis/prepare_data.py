@@ -222,7 +222,7 @@ def build_summary(data_dir: Path) -> dict:
         "schema_version": "1.3",
         "generated_from": "TIMSS 2023 Grade 8 SPSS Data",
         "prep_script": "analysis/prepare_data.py",
-        "title": "Assessment Fairness Explorer",
+        "title": "Assessment fairness explorer",
         "subtitle": "TIMSS 2023 Grade 8 mathematics: context-aware interpretation prompts",
         "dataset": {
             "name": "TIMSS 2023 International Database",

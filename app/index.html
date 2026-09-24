@@ -7,14 +7,14 @@
       name="description"
       content="An independent TIMSS 2023 prototype for context-aware interpretation of assessment results."
     />
-    <title>Assessment Fairness Explorer</title>
+    <title>Assessment fairness explorer</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="page-shell">
       <header class="hero">
         <p class="eyebrow">Independent research prototype · TIMSS 2023</p>
-        <h1>Assessment Fairness Explorer</h1>
+        <h1>Assessment fairness explorer</h1>
       </header>
 
       <div id="app-status" class="status-panel" role="status" aria-live="polite">
@@ -34,7 +34,7 @@
       <div id="app-content" hidden>
       <section class="framing" aria-labelledby="framing-heading">
         <div>
-          <p class="section-kicker">The decision question</p>
+          <p class="section-kicker">Research question</p>
           <h2 id="framing-heading">
             When might an observed score difference reflect unequal opportunity
             to demonstrate learning?
@@ -145,10 +145,6 @@
             <tbody id="summary-table"></tbody>
           </table>
         </div>
-        <div class="guardrails" aria-labelledby="guardrails-heading">
-          <p id="guardrails-heading" class="guardrails-label">Limitations</p>
-          <ul id="guardrail-list"></ul>
-        </div>
       </section>
 
       <section class="table-section" aria-labelledby="actions-heading">
@@ -222,20 +218,14 @@
           Subgroup values use the same method but have no corresponding official
           publication table, so they remain descriptive.
         </p>
+        <div class="guardrails" aria-labelledby="guardrails-heading">
+          <p id="guardrails-heading" class="guardrails-label">Limitations</p>
+          <ul id="guardrail-list"></ul>
+        </div>
       </section>
 
       <footer>
         <p id="source-citation"></p>
-        <p>
-          <code>analysis/prepare_data.py</code> recomputes every figure from the
-          public TIMSS files and writes <code>data/summary.json</code>, the only
-          data file the app reads. No student-level record is copied into the
-          interface.
-        </p>
-        <p>
-          Built as an independent portfolio prototype. It is not affiliated with,
-          endorsed by, or based on data from the International Baccalaureate.
-        </p>
       </footer>
       </div>
     </main>
