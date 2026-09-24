@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An independent TIMSS 2023 prototype for context-aware interpretation of assessment results."
+    />
+    <title>Assessment Fairness Explorer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Independent research prototype · TIMSS 2023</p>
+        <h1>Assessment Fairness Explorer</h1>
+      </header>
+
+      <div id="app-status" class="status-panel" role="status" aria-live="polite">
+        Loading prepared assessment summaries…
+      </div>
+
+      <div id="app-error" class="status-panel status-panel--error" role="alert" hidden>
+        <h2>Prepared data could not be loaded</h2>
+        <p>
+          Serve this project through a local web server, then open
+          <code>/app/</code>. For example, run
+          <code>python3 -m http.server 8000</code> from the project folder.
+        </p>
+        <button id="retry-button" type="button">Retry loading data</button>
+      </div>
+
+      <div id="app-content" hidden>
+      <section class="framing" aria-labelledby="framing-heading">
+        <div>
+          <p class="section-kicker">The decision question</p>
+          <h2 id="framing-heading">
+            When might an observed score difference reflect unequal opportunity
+            to demonstrate learning?
+          </h2>
+        </div>
+        <p>
+          This explorer summarizes weighted Grade 8 mathematics patterns from
+          five illustrative TIMSS 2023 systems, as a starting signal for the
+          research that would actually diagnose bias, establish causality, or
+          certify an assessment as fair.
+        </p>
+      </section>
+
+      <section class="explore-panel" aria-label="Explore a signal">
+        <div class="controls">
+          <label>
+            <span>Illustrative system</span>
+            <select id="country-select"></select>
+          </label>
+          <label>
+            <span>Context signal</span>
+            <select id="factor-select"></select>
+          </label>
+        </div>
+        <div class="view-tools">
+          <p id="selected-view" class="selected-view">—</p>
+          <button id="copy-link-button" type="button">Copy this view</button>
+        </div>
+        <p id="view-status" class="sr-only" aria-live="polite"></p>
+        <details class="about-view">
+          <summary>About this view and its limits</summary>
+          <div id="about-view-content"></div>
+        </details>
+      </section>
+
+      <section class="overview" aria-label="Selected system overview">
+        <article class="metric">
+          <span>Weighted mathematics mean</span>
+          <strong id="overall-mean">—</strong>
+          <small>TIMSS scale points, with 95% CI</small>
+        </article>
+        <article class="metric">
+          <span>Students represented</span>
+          <strong id="student-count">—</strong>
+          <small>Unweighted responding students</small>
+        </article>
+        <article class="metric">
+          <span>Schools represented</span>
+          <strong id="school-count">—</strong>
+          <small>Unweighted participating schools</small>
+        </article>
+      </section>
+
+      <section class="evidence-grid">
+        <figure class="evidence-card chart-card" aria-labelledby="factor-title" aria-describedby="chart-summary">
+          <p class="section-kicker">Observed pattern</p>
+          <h2 id="factor-title">—</h2>
+          <p id="factor-question" class="question">—</p>
+          <p id="chart-summary" class="chart-summary">—</p>
+          <div id="dot-plot" class="dot-plot" aria-hidden="true"></div>
+          <figcaption class="chart-note">
+            Weighted descriptive means with 95% confidence intervals (TIMSS
+            jackknife repeated replication, combined across five plausible
+            values). The table below provides the accessible data equivalent.
+          </figcaption>
+        </figure>
+
+        <aside class="evidence-card interpretation-card">
+          <p class="section-kicker">Interpret with care</p>
+          <h2 id="signal-heading">—</h2>
+          <p id="signal-copy">—</p>
+          <div class="action-box">
+            <span>Recommended next research action</span>
+            <p id="next-action">—</p>
+          </div>
+          <div class="decision-brief">
+            <h3>Evidence before action</h3>
+            <ul id="evidence-needed"></ul>
+            <p class="decision-gate">
+              <strong>Decision threshold</strong>
+              <span id="decision-gate">—</span>
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="table-section" aria-labelledby="table-heading">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Underlying summary</p>
+            <h2 id="table-heading">Group-level descriptive estimates</h2>
+          </div>
+          <p>Unweighted counts indicate available student records in each group.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption id="table-caption">—</caption>
+            <thead>
+              <tr>
+                <th scope="col">Group</th>
+                <th scope="col">Weighted mathematics mean</th>
+                <th scope="col">95% confidence interval</th>
+                <th scope="col">Unweighted n</th>
+                <th scope="col">Share of valid group records</th>
+                <th scope="col">Schools represented</th>
+              </tr>
+            </thead>
+            <tbody id="summary-table"></tbody>
+          </table>
+        </div>
+        <div class="guardrails" aria-labelledby="guardrails-heading">
+          <p id="guardrails-heading" class="guardrails-label">Limitations</p>
+          <ul id="guardrail-list"></ul>
+        </div>
+      </section>
+
+      <section class="table-section" aria-labelledby="actions-heading">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">All three signals</p>
+            <h2 id="actions-heading">From a signal to a defensible action</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="text-table">
+            <thead>
+              <tr>
+                <th scope="col">Observed pattern</th>
+                <th scope="col">Inappropriate conclusion</th>
+                <th scope="col">Appropriate next step</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Differences by test language spoken at home</th>
+                <td>“Students who use another language are weaker in mathematics.”</td>
+                <td>Examine language demand and translation; conduct cognitive interviews; test comparability across language groups.</td>
+              </tr>
+              <tr>
+                <th scope="row">Differences by home educational resources</th>
+                <td>“Students with fewer resources have lower ability.”</td>
+                <td>Examine opportunity to learn, access to instructional support, and whether assessment conditions introduce avoidable disadvantage.</td>
+              </tr>
+              <tr>
+                <th scope="row">Differences by school composition</th>
+                <td>“Individual students explain the pattern.”</td>
+                <td>Fit a multilevel model and combine quantitative findings with school-context evidence before recommending change.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="table-section" aria-labelledby="validation-heading">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Method check</p>
+            <h2 id="validation-heading">How the estimates were checked</h2>
+          </div>
+          <p>
+            National means and standard errors from this tool’s calculation,
+            compared with Exhibit 1.2.1 of the TIMSS 2023 International Results
+            in Mathematics and Science.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">System</th>
+                <th scope="col">This tool: mean (SE)</th>
+                <th scope="col">Published: mean (SE)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Australia</th><td>508.7 (3.48)</td><td>509 (3.5)</td></tr>
+              <tr><th scope="row">England</th><td>524.8 (4.54)</td><td>525 (4.5)</td></tr>
+              <tr><th scope="row">Singapore</th><td>605.3 (6.05)</td><td>605 (6.1)</td></tr>
+              <tr><th scope="row">United Arab Emirates</th><td>488.5 (1.73)</td><td>489 (1.7)</td></tr>
+              <tr><th scope="row">United States</th><td>488.0 (4.19)</td><td>488 (4.2)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          Subgroup values use the same method but have no corresponding official
+          publication table, so they remain descriptive.
+        </p>
+      </section>
+
+      <footer>
+        <p id="source-citation"></p>
+        <p>
+          <code>analysis/prepare_data.py</code> recomputes every figure from the
+          public TIMSS files and writes <code>data/summary.json</code>, the only
+          data file the app reads. No student-level record is copied into the
+          interface.
+        </p>
+        <p>
+          Built as an independent portfolio prototype. It is not affiliated with,
+          endorsed by, or based on data from the International Baccalaureate.
+        </p>
+      </footer>
+      </div>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
